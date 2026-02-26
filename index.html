@@ -1,37 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Services</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our 3D Services</h1>
-        <nav>
-            <ul>
-                <li><a href="#services">Our Services</a></li>
-                <li><a href="#about">About Us</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section id="services">
-            <h2>Our Services</h2>
-            <p>We offer a wide range of 3D services including 3D modeling, animation, and rendering.</p>
-        </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>We are a team of passionate 3D artists dedicated to bringing your ideas to life.</p>
-        </section>
-        <section id="contact">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, feel free to reach out!</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 3D Services. All rights reserved.</p>
-    </footer>
+<header class="site-header">
+    <div class="logo-block">
+        <!-- ЗДЕСЬ ЛОГОТИП: положи файл, например img/logo.png -->
+        <div class="logo-3d-wrapper">
+            <img src="img/logo.png" alt="3D Services Logo" class="logo-3d">
+        </div>
+        <div class="logo-text">
+            <h1>3D Services</h1>
+            <p>Моделирование • Визуализация • Печать</p>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#services">Услуги</a></li>
+            <li><a href="#catalog">Каталог</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Профессиональные 3D‑услуги для ваших задач</h2>
+            <p>От идеи до готового изделия: 3D‑моделирование, визуализация, подготовка к печати и сопровождение.</p>
+            <a href="#catalog" class="btn-primary">Перейти в каталог</a>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <h2>Наши услуги</h2>
+        <div class="cards">
+            <article class="card">
+                <h3>3D‑моделирование</h3>
+                <p>Создание точных 3D‑моделей по чертежам, эскизам или реальным объектам.</p>
+            </article>
+            <article class="card">
+                <h3>Визуализация</h3>
+                <p>Фотореалистичные рендеры для презентаций, рекламы и технической документации.</p>
+            </article>
+            <article class="card">
+                <h3>Подготовка к печати</h3>
+                <p>Анализ модели, исправление ошибок, разбиение на части, оптимизация под 3D‑печать.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="catalog" class="section section-alt">
+        <h2>Каталог работ</h2>
+        <p>Здесь могут быть примеры моделей, ссылки на Printables, фото готовых изделий и т.п.</p>
+        <div class="cards">
+            <article class="card">
+                <h3>Технические детали</h3>
+                <p>Корпуса, крепления, адаптеры, нестандартные элементы.</p>
+            </article>
+            <article class="card">
+                <h3>Интерьер и декор</h3>
+                <p>Светильники, элементы мебели, декоративные объекты.</p>
+            </article>
+            <article class="card">
+                <h3>Авто и тюнинг</h3>
+                <p>Кронштейны, переходники, кастомные элементы салона и экстерьера.</p>
+            </article>
+        </div>
+        <a href="catalog.html" class="btn-secondary">Открыть полный каталог</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2>О нас</h2>
+        <p>Мы занимаемся 3D‑моделированием и печатью, ориентируясь на практические задачи: ремонт, тюнинг, прототипы, мелкосерийные изделия.</p>
+        <p>Подход: прагматично, без воды, с учётом реальных ограничений материалов и оборудования.</p>
+    </section>
+
+    <section id="contact" class="section section-alt">
+        <h2>Контакты</h2>
+        <p>Опишите задачу, приложите фото/замеры — и мы скажем, реально ли это сделать и во сколько это обойдётся.</p>
+        <ul class="contact-list">
+            <li><strong>Telegram:</strong> @your_nick</li>
+            <li><strong>Email:</strong> you@example.com</li>
+            <li><strong>Город:</strong> Киёсу / онлайн‑заказы</li>
+        </ul>
+        <a href="contact.html" class="btn-secondary">Форма обратной связи</a>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; 2026 3D Services. Все права защищены.</p>
+</footer>
 </body>
 </html>
