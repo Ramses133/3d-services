@@ -1,35 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Models Catalog</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Каталог — 3D Services</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <h1>3D Models Catalog</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Featured 3D Models</h2>
-            <ul>
-                <li><a href="models/model1.html">Model 1</a></li>
-                <li><a href="models/model2.html">Model 2</a></li>
-                <li><a href="models/model3.html">Model 3</a></li>
-            </ul>
-        </section>
-        <section>
-            <h2>Categories</h2>
-            <ul>
-                <li><a href="#category1">Category 1</a></li>
-                <li><a href="#category2">Category 2</a></li>
-                <li><a href="#category3">Category 3</a></li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Ramses133. All rights reserved.</p>
-    </footer>
+
+<header class="site-header">
+    <div class="logo-block">
+        <div class="logo-3d-wrapper">
+            <img src="img/logo.png" alt="3D Services Logo" class="logo-3d">
+        </div>
+        <div class="logo-text">
+            <h1>3D Services</h1>
+            <p>Моделирование • Визуализация • Печать</p>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html#services">Услуги</a></li>
+            <li><a href="catalog.html" style="color: var(--accent); border-color: var(--accent);">Каталог</a></li>
+            <li><a href="about.html">О нас</a></li>
+            <li><a href="contact.html">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="section">
+        <h2>Каталог работ</h2>
+        <p>Здесь представлены примеры изделий, моделей и проектов. Можно добавить фото, ссылки на Printables, описания и цены.</p>
+
+        <div class="cards">
+
+            <article class="card">
+                <h3>Корпуса и технические детали</h3>
+                <p>Корпуса для электроники, крепления, адаптеры, механические элементы.</p>
+                <a href="#" class="btn-secondary">Подробнее</a>
+            </article>
+
+            <article class="card">
+                <h3>Интерьер и декор</h3>
+                <p>Светильники, элементы мебели, декоративные объекты, уникальные формы.</p>
+                <a href="#" class="btn-secondary">Подробнее</a>
+            </article>
+
+            <article class="card">
+                <h3>Авто‑тюнинг</h3>
+                <p>Кронштейны, переходники, кастомные элементы салона и экстерьера.</p>
+                <a href="#" class="btn-secondary">Подробнее</a>
+            </article>
+
+            <article class="card">
+                <h3>Запчасти под заказ</h3>
+                <p>Редкие или снятые с производства детали, восстановление по образцу.</p>
+                <a href="#" class="btn-secondary">Подробнее</a>
+            </article>
+
+            <article class="card">
+                <h3>Прототипы</h3>
+                <p>Быстрое создание прототипов для проверки идеи или механики.</p>
+                <a href="#" class="btn-secondary">Подробнее</a>
+            </article>
+
+            <article class="card">
+                <h3>Подарки и сувениры</h3>
+                <p>Фигурки, брелоки, декоративные элементы, уникальные подарки.</p>
+                <a href="#" class="btn-secondary">Подробнее</a>
+            </article>
+
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; 2026 3D Services. Все права защищены.</p>
+</footer>
+
 </body>
 </html>
