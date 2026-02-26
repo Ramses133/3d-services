@@ -43,7 +43,17 @@
     .muted { color: var(--muted); }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; transition: transform 0.3s, box-shadow 0.3s; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; transition: transform 0.3s, box-shadow 0.3s; animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; }
+    .card:nth-child(7) { animation-delay: 0.7s; }
+    .card:nth-child(8) { animation-delay: 0.8s; }
+    .card:nth-child(9) { animation-delay: 0.9s; }
+    .card:nth-child(10) { animation-delay: 1s; }
     .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
     .card h3 { margin: 15px 0 10px; font-size: 20px; }
     .price { font-weight: 700; color: var(--accent); font-size: 18px; }
@@ -69,7 +79,7 @@
     .note { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
     .admin-link { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #0b1022; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; text-decoration: none; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); z-index: 100; }
 
-    /* Исправленный вращающийся логотип */
+    /* Вращающийся логотип (только передняя сторона) */
     .logo-container {
       width: 200px;
       height: 200px;
@@ -98,22 +108,20 @@
       height: 100%;
       border-radius: 50%;
       object-fit: cover;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
+      /* Если хотите скрыть обратную сторону, раскомментируйте следующую строку: */
+      /* backface-visibility: hidden; */
     }
     
-    /* Создаем "заднюю" сторону, которая идентична передней */
-    .logo img.front {
-      transform: rotateY(0deg);
-    }
-    
-    .logo img.back {
-      transform: rotateY(180deg);
-    }
-    
+    /* Анимация вращения */
     @keyframes spin {
       from { transform: rotateY(0deg); }
       to   { transform: rotateY(360deg); }
+    }
+
+    /* Анимация появления карточек */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     /* Модальное окно управления логотипом */
@@ -316,11 +324,10 @@
 
   <header>
     <div class="container nav">
-      <!-- Вращающийся логотип -->
+      <!-- Вращающийся логотип (только передняя сторона) -->
       <div class="logo-container" id="draggable-logo">
         <div class="logo">
-          <img src="assets/logo.png" alt="3D Service Logo" class="front">
-          <img src="assets/logo.png" alt="3D Service Logo" class="back">
+          <img src="assets/logo.png" alt="3D Service Logo">
         </div>
       </div>
 
@@ -362,21 +369,18 @@
           <h3>Печать по 3D‑модели</h3>
           <p>Вы присылаете STL/OBJ — мы печатаем на FDM‑принтерах с точностью до 0.3 мм. Возможен выбор цвета и плотности заполнения.</p>
           <span class="tag">FDM</span> <span class="tag">PLA/PETG/ABS</span>
-          <p class="price">от 500 ₽</p>
         </div>
         <div class="card">
           <img src="assets/service-proto.jpg" alt="Прототипирование" />
           <h3>Прототипирование</h3>
           <p>Промышленные прототипы для проверки формы и монтажа. Консультации по допускам, усилениям и ориентации печати.</p>
           <span class="tag">Техподготовка</span> <span class="tag">Тест‑сборка</span>
-          <p class="price">индивидуально</p>
         </div>
         <div class="card">
           <img src="assets/service-post.jpg" alt="Пост‑обработка" />
           <h3>Пост‑обработка</h3>
           <p>Шлифовка, грунтовка, покраска и склейка узлов. Делаем финиш под экспозицию или функциональное применение.</p>
           <span class="tag">Финиш</span> <span class="tag">Покраска</span>
-          <p class="price">от 300 ₽</p>
         </div>
       </div>
     </div>
@@ -514,9 +518,110 @@
   <a href="admin.html" class="admin-link" title="Управление каталогом">A</a>
 
   <script>
+    // Данные каталога (все товары с вашего сайта-примера, разбитые по категориям)
+    const catalogData = [
+      // Авто
+      { category: "auto", name: "Держатель телефона для авто", description: "Универсальный держатель для телефона в автомобиль с регулируемым зажимом.", image: "assets/placeholder.jpg", tags: ["держатель", "авто"] },
+      { category: "auto", name: "DIN вставка под доп приборы 52мм", description: "Вставка формата DIN под дополнительные приборы 52 мм вместо штатной заглушки.", image: "assets/placeholder.jpg", tags: ["авто", "приборы"] },
+      { category: "auto", name: "Прокладка ручки двери VAG", description: "Прокладка под наружную ручку двери для устранения люфта и скрипов.", image: "assets/placeholder.jpg", tags: ["VAG", "дверь"] },
+      { category: "auto", name: "52 мм держатель на рулевую стойку", description: "Крепление для прибора 52 мм на рулевую стойку для установки доп. датчиков.", image: "assets/placeholder.jpg", tags: ["крепление", "датчик"] },
+      { category: "auto", name: "52мм отверстие в воздуховод", description: "Переходник под прибор 52 мм для установки в штатный воздуховод панели.", image: "assets/placeholder.jpg", tags: ["воздуховод", "переходник"] },
+      { category: "auto", name: "Адаптер воздушного клапана", description: "Адаптер для подключения или переноса воздушного клапана при доработке впуска.", image: "assets/placeholder.jpg", tags: ["адаптер", "впуск"] },
+      { category: "auto", name: "Адаптер динамика", description: "Переходное кольцо для установки динамиков нестандартного размера в штатные места дверей/полок.", image: "assets/placeholder.jpg", tags: ["адаптер", "динамики"] },
+      { category: "auto", name: "Адаптер для катушки", description: "Адаптер для крепления катушки зажигания при замене на другой тип или модель.", image: "assets/placeholder.jpg", tags: ["катушка", "адаптер"] },
+      { category: "auto", name: "Адаптер подсветки ног переднего пассажира", description: "Адаптер для установки подсветки ног переднего пассажира по номеру 3U0 857 974.", image: "assets/placeholder.jpg", tags: ["подсветка", "адаптер"] },
+      { category: "auto", name: "Адаптер ручки КПП для MKIV Golf 20th", description: "Адаптер ручки переключения передач для Golf MK4 20th Anniversary.", image: "assets/placeholder.jpg", tags: ["КПП", "адаптер"] },
+      { category: "auto", name: "Брелок GOLF4", description: "Брелок с тематикой Golf 4, печать под заказ под стиль вашего автомобиля.", image: "assets/placeholder.jpg", tags: ["брелок", "Golf"] },
+      { category: "auto", name: "Вентиляция в полу переднего пассажира", description: "Элемент вентиляции в полу переднего пассажира, восстановление штатной системы обдува ног.", image: "assets/placeholder.jpg", tags: ["вентиляция", "VAG"] },
+      { category: "auto", name: "Винт крепления запасного колеса VW", description: "Винт для надёжной фиксации запасного колеса в нише багажника Volkswagen.", image: "assets/placeholder.jpg", tags: ["VW", "колесо"] },
+      { category: "auto", name: "Внутренняя крышка фары Jetta", description: "Внутренняя крышка фары для Volkswagen Jetta, замена потерянной или повреждённой детали.", image: "assets/placeholder.jpg", tags: ["фара", "Jetta"] },
+      { category: "auto", name: "Воздухозаборник для нулевика", description: "Переходной воздухозаборник под нулевой фильтр, печать из термостойкого пластика.", image: "assets/placeholder.jpg", tags: ["воздухозаборник", "фильтр"] },
+      { category: "auto", name: "Втулка ручки стекла", description: "Втулка ручки стеклоподъёмника, восстанавливает плотную посадку ручки и убирает люфты.", image: "assets/placeholder.jpg", tags: ["втулка", "стеклоподъёмник"] },
+      { category: "auto", name: "Дверной глушитель VAG 4E4 837 763", description: "Дверной глушитель по номеру 4E4 837 763 для снижения шумов и вибраций в двери.", image: "assets/placeholder.jpg", tags: ["глушитель", "VAG"] },
+      { category: "auto", name: "Держатель для датчиков парковки в бампере", description: "Крепление для датчиков парковки в бампере, подходит для ретрофита парктроников.", image: "assets/placeholder.jpg", tags: ["датчик", "парктроник"] },
+      { category: "auto", name: "Держатель жала ключа", description: "Держатель жала ключа для восстановления или доработки выкидного ключа.", image: "assets/placeholder.jpg", tags: ["ключ", "держатель"] },
+      { category: "auto", name: "Держатель полки багажника", description: "Держатель полки багажника как замена штатного пластикового крепления при поломке.", image: "assets/placeholder.jpg", tags: ["багажник", "держатель"] },
+      { category: "auto", name: "Держатель предохранителя", description: "Корпус/держатель предохранителя для аккуратной установки в жгут проводки.", image: "assets/placeholder.jpg", tags: ["предохранитель", "держатель"] },
+      { category: "auto", name: "Держатель смартфона панели переключателя Golf MK4", description: "Держатель смартфона для установки на панель переключателя в Golf MK4.", image: "assets/placeholder.jpg", tags: ["смартфон", "держатель"] },
+      { category: "auto", name: "Заглушка 2 пин фишки", description: "Заглушка для 2-пинового разъёма, защита от пыли и влаги.", image: "assets/placeholder.jpg", tags: ["заглушка", "разъём"] },
+      { category: "auto", name: "Заглушка 7L6945285", description: "Заглушка по номеру 7L6945285 для VAG автомобилей.", image: "assets/placeholder.jpg", tags: ["заглушка", "VAG"] },
+      { category: "auto", name: "Заглушка AIRBAG VAG", description: "Заглушка для системы AIRBAG в автомобилях VAG.", image: "assets/placeholder.jpg", tags: ["AIRBAG", "заглушка"] },
+      { category: "auto", name: "Заглушка дворников 1J0955205A", description: "Заглушка для крепления дворников по номеру 1J0955205A.", image: "assets/placeholder.jpg", tags: ["дворники", "заглушка"] },
+      { category: "auto", name: "Заглушка заднего дворника", description: "Заглушка для крепления заднего дворника.", image: "assets/placeholder.jpg", tags: ["дворник", "заглушка"] },
+      { category: "auto", name: "Заглушка порога 3B0864509A", description: "Заглушка порога по номеру 3B0864509A.", image: "assets/placeholder.jpg", tags: ["порог", "заглушка"] },
+      { category: "auto", name: "Заглушка ручки водителя", description: "Заглушка для ручки двери водителя.", image: "assets/placeholder.jpg", tags: ["ручка", "заглушка"] },
+      { category: "auto", name: "Заглушка салазок сидения", description: "Заглушка для направляющих (салазок) сидения.", image: "assets/placeholder.jpg", tags: ["сидение", "салазки"] },
+      { category: "auto", name: "Заглушки хлопушки", description: "Заглушки для быстросъёмных креплений (хлопушек).", image: "assets/placeholder.jpg", tags: ["хлопушка", "заглушка"] },
+      { category: "auto", name: "Зажим аккумулятора", description: "Зажим для фиксации аккумулятора в подкапотном пространстве.", image: "assets/placeholder.jpg", tags: ["аккумулятор", "зажим"] },
+      { category: "auto", name: "Зажим для крышки багажника Volkswagen Golf 4", description: "Зажим для крышки багажника Volkswagen Golf 4.", image: "assets/placeholder.jpg", tags: ["багажник", "зажим"] },
+      { category: "auto", name: "Зажим для фиксации втулки", description: "Зажим для надёжной фиксации втулки в посадочном месте.", image: "assets/placeholder.jpg", tags: ["втулка", "зажим"] },
+      { category: "auto", name: "Зажим коврика", description: "Зажим для фиксации автомобильного коврика.", image: "assets/placeholder.jpg", tags: ["коврик", "зажим"] },
+      { category: "auto", name: "Замена задней пепельницы", description: "Запасная часть для замены задней пепельницы.", image: "assets/placeholder.jpg", tags: ["пепельница", "замена"] },
+      { category: "auto", name: "Замена пепельницы", description: "Запасная часть для замены пепельницы.", image: "assets/placeholder.jpg", tags: ["пепельница", "замена"] },
+      { category: "auto", name: "Замок пробки радиатора", description: "Замок для пробки радиатора охлаждения.", image: "assets/placeholder.jpg", tags: ["радиатор", "замок"] },
+      { category: "auto", name: "Запасная часть стеклоподъёмника", description: "Запасная часть для ремонта стеклоподъёмника.", image: "assets/placeholder.jpg", tags: ["стеклоподъёмник", "запчасть"] },
+      { category: "auto", name: "Защелка пластика двигателя", description: "Защёлка для крепления пластиковых элементов в подкапотном пространстве.", image: "assets/placeholder.jpg", tags: ["двигатель", "защёлка"] },
+      { category: "auto", name: "Защелка подлокотника", description: "Защёлка для фиксации подлокотника.", image: "assets/placeholder.jpg", tags: ["подлокотник", "защёлка"] },
+      { category: "auto", name: "Инструмент для обслуживания КПП VAG DSG", description: "Специальный инструмент для обслуживания коробки передач VAG DSG.", image: "assets/placeholder.jpg", tags: ["инструмент", "КПП"] },
+      { category: "auto", name: "Инструмент для снятия топливного насоса", description: "Специальный инструмент для снятия топливного насоса.", image: "assets/placeholder.jpg", tags: ["инструмент", "насос"] },
+      { category: "auto", name: "Клипса крепления ковриков VAG 3C0 864 523", description: "Клипса для крепления ковриков по номеру 3C0 864 523.", image: "assets/placeholder.jpg", tags: ["клипса", "коврик"] },
+      { category: "auto", name: "Колпачки на колесные болты Volkswagen", description: "Декоративные колпачки на колесные болты Volkswagen.", image: "assets/placeholder.jpg", tags: ["колпачки", "болты"] },
+      { category: "auto", name: "Колпачок дисков", description: "Декоративный колпачок для автомобильных дисков.", image: "assets/placeholder.jpg", tags: ["диски", "колпачок"] },
+      { category: "auto", name: "Кольцо под антенну", description: "Уплотнительное кольцо для установки антенны.", image: "assets/placeholder.jpg", tags: ["антенна", "кольцо"] },
+      { category: "auto", name: "Комплект для ремонта дроссельной заслонки VAG EGR", description: "Комплект для ремонта дроссельной заслонки и системы EGR.", image: "assets/placeholder.jpg", tags: ["дроссель", "EGR"] },
+      { category: "auto", name: "Коробочка для свечей", description: "Коробочка для хранения свечей зажигания.", image: "assets/placeholder.jpg", tags: ["свечи", "коробка"] },
+      { category: "auto", name: "Корпус датчика MAP VAG 1.8 T", description: "Корпус датчика MAP (давления во впускном коллекторе) для двигателей 1.8 T.", image: "assets/placeholder.jpg", tags: ["датчик", "MAP"] },
+      { category: "auto", name: "Корпус датчика массового расхода воздуха Audi S3 1,8T", description: "Корпус датчика массового расхода воздуха для Audi S3 1,8T.", image: "assets/placeholder.jpg", tags: ["датчик", "воздух"] },
+      { category: "auto", name: "Корпус лезвия ключа", description: "Корпус для лезвия ключа зажигания.", image: "assets/placeholder.jpg", tags: ["ключ", "корпус"] },
+      { category: "auto", name: "Крепление для разъёмов 6R0971848", description: "Крепление для разъёмов по номеру 6R0971848.", image: "assets/placeholder.jpg", tags: ["крепление", "разъём"] },
+      { category: "auto", name: "Кронштейн подсветки ног водителя 3B0 947 415 B", description: "Кронштейн для подсветки ног водителя по номеру 3B0 947 415 B.", image: "assets/placeholder.jpg", tags: ["подсветка", "кронштейн"] },
+      { category: "auto", name: "Кронштейн подсветки ног задний пассажиров 3U0 881 559", description: "Кронштейн для подсветки ног задних пассажиров по номеру 3U0 881 559.", image: "assets/placeholder.jpg", tags: ["подсветка", "кронштейн"] },
+      { category: "auto", name: "Крутилка кресла 1J0 881 671G", description: "Ручка регулировки кресла по номеру 1J0 881 671G.", image: "assets/placeholder.jpg", tags: ["кресло", "ручка"] },
+      { category: "auto", name: "Крутилка сидений Recaro", description: "Ручка регулировки для сидений Recaro.", image: "assets/placeholder.jpg", tags: ["Recaro", "ручка"] },
+      { category: "auto", name: "Крышка дверной петли замка", description: "Декоративная крышка для дверной петли замка.", image: "assets/placeholder.jpg", tags: ["крышка", "петля"] },
+      { category: "auto", name: "Крышка омывателя фар VW Golf MK4", description: "Крышка омывателя фар для VW Golf MK4.", image: "assets/placeholder.jpg", tags: ["омыватель", "фара"] },
+      { category: "auto", name: "Крышка ремня", description: "Защитная крышка ремня.", image: "assets/placeholder.jpg", tags: ["ремень", "крышка"] },
+      { category: "auto", name: "Крышка фар Bora-Jetta", description: "Задняя крышка фары для Volkswagen Bora/Jetta.", image: "assets/placeholder.jpg", tags: ["фара", "крышка"] },
+      { category: "auto", name: "Крышка фары ксенон", description: "Задняя крышка фары для ксеноновых фар.", image: "assets/placeholder.jpg", tags: ["ксенон", "крышка"] },
+      { category: "auto", name: "Крышки задней пепельницы", description: "Комплект крышек для задней пепельницы.", image: "assets/placeholder.jpg", tags: ["пепельница", "крышка"] },
+      { category: "auto", name: "Крючки для пакета", description: "Крючки для фиксации пакетов в багажнике.", image: "assets/placeholder.jpg", tags: ["крючки", "пакеты"] },
+      { category: "auto", name: "Крючок для хранения сумок за сиденьем", description: "Крючок для хранения сумок за сиденьем водителя или пассажира.", image: "assets/placeholder.jpg", tags: ["крючок", "сумки"] },
+      { category: "auto", name: "Крючок на стену GTI", description: "Стилизованный крючок для стены с логотипом GTI.", image: "assets/placeholder.jpg", tags: ["крючок", "GTI"] },
+      { category: "auto", name: "Маслозаливная воронка VAG", description: "Специальная воронка для заливки масла в двигатели VAG.", image: "assets/placeholder.jpg", tags: ["воронка", "масло"] },
+      { category: "auto", name: "Накладки на сиденье Recaro", description: "Ремонтные накладки на сиденья Recaro.", image: "assets/placeholder.jpg", tags: ["Recaro", "накладки"] },
+      { category: "auto", name: "Направляющая кабеля 1J0971848H", description: "Направляющая для кабеля по номеру 1J0971848H.", image: "assets/placeholder.jpg", tags: ["кабель", "направляющая"] },
+      { category: "auto", name: "Обойма гофры Volkswagen Golf 4", description: "Обойма (хомут) для крепления гофры выхлопной системы Golf 4.", image: "assets/placeholder.jpg", tags: ["гофра", "обойма"] },
+      { category: "auto", name: "Органайзер в подлокотник", description: "Встраиваемый органайзер в подлокотник автомобиля.", image: "assets/placeholder.jpg", tags: ["органайзер", "подлокотник"] },
+      { category: "auto", name: "Перчаточный ящик USB AUX", description: "Модификация перчаточного ящика с разъёмами USB и AUX.", image: "assets/placeholder.jpg", tags: ["USB", "AUX"] },
+      { category: "auto", name: "Повторитель поворотника в крыло", description: "Повторитель указателя поворота для установки в крыло.", image: "assets/placeholder.jpg", tags: ["поворотник", "крыло"] },
+      { category: "auto", name: "Подстаканник в штатное место", description: "Подстаканник для установки в штатное место автомобиля.", image: "assets/placeholder.jpg", tags: ["подстаканник", "авто"] },
+      { category: "auto", name: "Проставка стойки 10мм", description: "Проставка для стойки амортизатора толщиной 10мм.", image: "assets/placeholder.jpg", tags: ["проставка", "стойка"] },
+      { category: "auto", name: "Пружинный зажим 032 121 142", description: "Пружинный зажим по номеру 032 121 142.", image: "assets/placeholder.jpg", tags: ["зажим", "пружина"] },
+      { category: "auto", name: "Разъём 8L0971972", description: "Разъём по номеру 8L0971972 для Audi/VAG.", image: "assets/placeholder.jpg", tags: ["разъём", "Audi"] },
+      { category: "auto", name: "Рассеиватель плафона", description: "Рассеиватель для плафона освещения салона.", image: "assets/placeholder.jpg", tags: ["плафон", "рассеиватель"] },
+      { category: "auto", name: "Ремкомплект дефлекторов", description: "Ремонтный комплект для дефлекторов вентиляции.", image: "assets/placeholder.jpg", tags: ["дефлектор", "ремкомплект"] },
+      { category: "auto", name: "Ремнабор для замка подлокотника", description: "Ремонтный набор для замка подлокотника.", image: "assets/placeholder.jpg", tags: ["замок", "подлокотник"] },
+      { category: "auto", name: "Решетка дефлектора", description: "Декоративная решётка для дефлектора вентиляции.", image: "assets/placeholder.jpg", tags: ["решетка", "дефлектор"] },
+      { category: "auto", name: "Решетка для динамиков (не родная)", description: "Нестандартная решётка для динамиков.", image: "assets/placeholder.jpg", tags: ["решетка", "динамики"] },
+      { category: "auto", name: "Решетка знак эмблема для Volkswagen MKIV Jetta", description: "Решётка радиатора с эмблемой для Volkswagen Jetta MKIV.", image: "assets/placeholder.jpg", tags: ["решетка", "эмблема"] },
+      { category: "auto", name: "Ручка Wolfburg Edition", description: "Ручка КПП в стиле Wolfburg Edition.", image: "assets/placeholder.jpg", tags: ["ручка", "КПП"] },
+      { category: "auto", name: "Ручка КПП Golf 3 шар", description: "Ручка переключения передач в форме шара для Golf 3.", image: "assets/placeholder.jpg", tags: ["ручка", "Golf 3"] },
+      { category: "auto", name: "Ручка сидения 1J388163", description: "Ручка регулировки сидения по номеру 1J388163.", image: "assets/placeholder.jpg", tags: ["ручка", "сидение"] },
+      // Инструменты
+      { category: "tools", name: "Органайзер для инструментов", description: "Компактный органайзер для хранения мелкого инструмента и крепежа.", image: "assets/placeholder.jpg", tags: ["органайзер", "инструмент"] },
+      // Светильники
+      { category: "lights", name: "Крепление для светильника", description: "Надежное крепление для подвесных светильников и люстр.", image: "assets/placeholder.jpg", tags: ["светильник", "крепление"] },
+      // Держатели телефона
+      { category: "phone_holders", name: "Настольная подставка для телефона", description: "Эргономичная подставка для смартфона с возможностью зарядки.", image: "assets/placeholder.jpg", tags: ["подставка", "телефон"] },
+      // Мебельная фурнитура
+      { category: "furniture", name: "Ручка для мебели", description: "Стильная ручка для шкафов и комодов в современном дизайне.", image: "assets/placeholder.jpg", tags: ["ручка", "мебель"] },
+      // Вазы
+      { category: "vases", name: "Декоративная ваза", description: "Элегантная ваза для цветов с уникальным геометрическим узором.", image: "assets/placeholder.jpg", tags: ["ваза", "декор"] }
+    ];
+
     // Загрузка и отображение каталога
     document.addEventListener('DOMContentLoaded', function() {
-      loadCatalog();
+      displayCatalog(catalogData);
       
       // Обработчики для фильтров
       document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -548,18 +653,6 @@
       initAdminProtection();
     });
 
-    async function loadCatalog() {
-      try {
-        const response = await fetch('catalog-data.json');
-        const data = await response.json();
-        displayCatalog(data.products);
-      } catch (error) {
-        console.error('Ошибка загрузки каталога:', error);
-        document.getElementById('catalog-items').innerHTML = 
-          '<p>Каталог временно недоступен. Пожалуйста, свяжитесь с нами напрямую.</p>';
-      }
-    }
-
     function displayCatalog(products) {
       const container = document.getElementById('catalog-items');
       
@@ -568,12 +661,11 @@
         return;
       }
       
-      container.innerHTML = products.map(product => `
-        <div class="card" data-category="${product.category}">
+      container.innerHTML = products.map((product, index) => `
+        <div class="card" data-category="${product.category}" style="animation-delay: ${0.1 + index * 0.05}s">
           <img src="${product.image}" alt="${product.name}" onerror="this.src='assets/placeholder.jpg'" />
           <h3>${product.name}</h3>
           <div class="meta">
-            <span class="price">${product.price} ₽</span>
             ${product.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
           </div>
           <p class="muted">${product.description}</p>
@@ -586,26 +678,18 @@
     }
 
     function filterCatalog(category) {
-      const allItems = document.querySelectorAll('#catalog-items .card');
-      
-      allItems.forEach(item => {
-        if (category === 'all' || item.getAttribute('data-category') === category) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
+      if (category === 'all') {
+        displayCatalog(catalogData);
+      } else {
+        const filtered = catalogData.filter(product => product.category === category);
+        displayCatalog(filtered);
+      }
     }
 
     // Система защиты администратора
     function initAdminProtection() {
       // Секретный код доступа (измените на свой)
-      const _a = '3D@';
-  const _b = 'dmin_';
-  const _c = 'Print';
-  const _d = '2025';
-  const _e = '!Balashov';
-  const SECRET_CODE = _a + _b + _c + _d + _e; // '3D@dmin_Print2025!Balashov'
+      const SECRET_CODE = '3D@dmin_Print2025!Balashov';
       let isAdmin = localStorage.getItem('isAdmin') === 'true';
       
       // Получаем элементы
@@ -717,11 +801,11 @@
       const closeBtn = document.getElementById('close-logo-modal');
       
       // Функции для работы с модальным окном
-      function showLogoModal() {
+      window.showLogoModal = function() {
         logoModal.classList.add('active');
         modalOverlay.classList.add('active');
         loadLogoSettingsToInputs();
-      }
+      };
       
       function hideLogoModal() {
         logoModal.classList.remove('active');
