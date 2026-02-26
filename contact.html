@@ -1,20 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Контакты — 3D Services</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Contact Us</h1>
-    <form action="/submit_contact" method="POST">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br><br>
-        <label for="message">Message:</label><br>
-        <textarea id="message" name="message" required></textarea><br><br>
-        <input type="submit" value="Submit">
-    </form>
+
+<header class="site-header">
+    <div class="logo-block">
+        <div class="logo-3d-wrapper">
+            <img src="img/logo.png" alt="3D Services Logo" class="logo-3d">
+        </div>
+        <div class="logo-text">
+            <h1>3D Services</h1>
+            <p>Моделирование • Визуализация • Печать</p>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html#services">Услуги</a></li>
+            <li><a href="catalog.html">Каталог</a></li>
+            <li><a href="about.html">О нас</a></li>
+            <li><a href="contact.html" style="color: var(--accent); border-color: var(--accent);">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="section">
+        <h2>Связаться с нами</h2>
+        <p>Опишите задачу, приложите фото или чертёж — и мы подскажем стоимость и сроки.</p>
+
+        <ul class="contact-list">
+            <li><strong>Telegram:</strong> @3DService</li>
+            <li><strong>Email:</strong> ramses258852@gmail.com</li>
+            <li><strong>Город:</strong> Саратовская обл. Балашов</li>
+        </ul>
+
+        <h3>Форма обратной связи</h3>
+
+        <form class="contact-form" action="#" method="post">
+            <label>Ваше имя</label>
+            <input type="text" placeholder="Введите имя">
+
+            <label>Email</label>
+            <input type="email" placeholder="Введите email">
+
+            <label>Сообщение</label>
+            <textarea rows="5" placeholder="Опишите задачу"></textarea>
+
+            <button class="btn-primary" type="submit">Отправить</button>
+        </form>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <p>&copy; 2026 3D Services. Все права защищены.</p>
+</footer>
+
 </body>
 </html>
